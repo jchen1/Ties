@@ -19,8 +19,16 @@ defmodule TiesWeb.Router do
     get "/", PageController, :index
   end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", TiesWeb do
-  #   pipe_through :api
-  # end
+  scope "/api", TiesWeb.Api do
+    pipe_through :api
+    scope "/v1", V1, as: :v1 do
+      resources "/ties", TieController, except: [:edit, :new] do
+        resources "/tags", TieTagController, except: [:edit, :new, :update]
+      end
+      resources "/tags", TagController, except: [:edit, :new], param: "name"
+      get "/healthcheck", ApiController, :healthcheck
+      get "/version", ApiController, :version
+      get "/", ApiController, :index
+    end
+  end
 end

@@ -23,6 +23,7 @@ defmodule TiesWeb do
       import Plug.Conn
       import TiesWeb.Router.Helpers
       import TiesWeb.Gettext
+      import Ecto.Query
     end
   end
 

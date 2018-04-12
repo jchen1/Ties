@@ -2,7 +2,7 @@ defmodule Ties.Tag do
   use Ecto.Schema
   import Ecto.Changeset
 
-
+  @derive {Poison.Encoder, only: [:name, :id]}
   schema "tags" do
     field :name, :string
 
