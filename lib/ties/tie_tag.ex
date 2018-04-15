@@ -3,10 +3,10 @@ defmodule Ties.TieTag do
   import Ecto.Changeset
 
   @primary_key false
-  @derive {Poison.Encoder, only: [:tie_id, :tag_id, :id]}
+  @derive {Poison.Encoder, only: [:tie_id, :name, :id]}
   schema "tie_tags" do
-    field :tie_id, :id, primary_key: true
-    field :tag_id, :id, primary_key: true
+    field :name, :string, primary_key: true
+    belongs_to :tie, Ties.Tie, primary_key: true
 
     timestamps()
   end
@@ -14,10 +14,9 @@ defmodule Ties.TieTag do
   @doc false
   def changeset(tie_tag, attrs) do
     tie_tag
-    |> cast(attrs, [:tie_id, :tag_id])
+    |> cast(attrs, [:tie_id, :name])
     |> foreign_key_constraint(:tie_id)
-    |> foreign_key_constraint(:tag_id)
     |> unique_constraint(:unique_tietag, name: :tietag_index)
-    |> validate_required([:tie_id, :tag_id])
+    |> validate_required([:tie_id, :name])
   end
 end

@@ -4,9 +4,9 @@ import { Container } from 'reactstrap'
 export default class Root extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
-      <div className="container-fluid">
+      <Container fluid={true}>
         {this.props.children}
-      </div>
+      </Container>
     )
   }
 }

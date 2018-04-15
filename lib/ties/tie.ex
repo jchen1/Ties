@@ -2,11 +2,12 @@ defmodule Ties.Tie do
   use Ecto.Schema
   import Ecto.Changeset
 
-  @derive {Poison.Encoder, only: [:first_name, :last_conversation, :last_name, :id]}
+  @derive {Poison.Encoder, only: [:first_name, :last_conversation, :last_name, :id, :tags]}
   schema "ties" do
     field :first_name, :string
     field :last_conversation, :utc_datetime
     field :last_name, :string
+    has_many :tags, Ties.TieTag
 
     timestamps()
   end
