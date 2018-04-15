@@ -13,12 +13,6 @@ defmodule TiesWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", TiesWeb do
-    pipe_through :browser # Use the default browser stack
-
-    get "/", PageController, :index
-  end
-
   scope "/api", TiesWeb.Api do
     pipe_through :api
     scope "/v1", V1, as: :v1 do
@@ -30,5 +24,11 @@ defmodule TiesWeb.Router do
       get "/version", ApiController, :version
       get "/", ApiController, :index
     end
+  end
+
+  scope "/", TiesWeb do
+    pipe_through :browser # Use the default browser stack
+
+    get "/*path", PageController, :index
   end
 end

@@ -13,7 +13,7 @@ defmodule Ties.Tie do
 
   @doc false
   def changeset(tie, attrs) do
-    with attrs <- Map.put(attrs, "last_conversation", DateTime.from_unix!(0)) do
+    with attrs <- attrs |> Map.put_new("last_conversation", 0) |> Map.update!("last_conversation", &DateTime.from_unix!/1) do
       tie
       |> cast(attrs, [:first_name, :last_name, :last_conversation])
       |> validate_required([:first_name, :last_name, :last_conversation])

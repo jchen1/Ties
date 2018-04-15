@@ -6,7 +6,7 @@ defmodule TiesWeb.Api.V1.TieController do
   action_fallback TiesWeb.Api.V1.ErrorController
 
   def index(conn, _params) do
-    json conn, Repo.all(Tag)
+    json conn, Repo.all(Tie)
   end
 
   def show(conn, %{"id" => id}) do
@@ -23,7 +23,8 @@ defmodule TiesWeb.Api.V1.TieController do
     end
   end
 
-  def update(conn, %{"id" => id} = params) do
+  def update(conn, %{"id" => id, "last_conversation" => last_conversation} = params) do
+    IO.puts last_conversation
     case Repo.get(Tie, id) do
       tie ->
         changeset = Tie.changeset(tie, params)
