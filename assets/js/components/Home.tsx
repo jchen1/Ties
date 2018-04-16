@@ -187,7 +187,7 @@ export default class Home extends React.Component<{}, HomeState> {
             <h4>Tags:</h4>
             <div>
               {tie.tags.map(({ name }) => <span>{name}<br/></span>)}
-              <CreateTagForm tie={tie} addTag={this.addTag.bind(this, index)} ></CreateTagForm>
+              <CreateTagForm tie={tie} addTag={this.addTag.bind(this, index)}></CreateTagForm>
             </div>
             <Button color="primary" onClick={this.updateConversation.bind(this, index)}>Just talked...</Button>
             <Button color="danger" onClick={this.deleteTie.bind(this, index)}>Delete...</Button>
