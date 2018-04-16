@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { RouteComponentProps } from 'react-router-dom'
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap'
+import { Container, Button, ButtonGroup, Form, FormGroup, Label, Input, Row, Col, ListGroup, ListGroupItem } from 'reactstrap'
 
 interface Tie {
   id: number
@@ -56,17 +56,20 @@ class CreateTieForm extends React.Component<CreateTieFormProps, CreateTieFormSta
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
-        <Label>
-          First name:
-          <Input type="text" value={this.state.first_name} onChange={this.handleChange.bind(this, 'first_name')} />
-        </Label>
-        <Label>
-          Last name:
-          <Input type="text" value={this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} />
-        </Label>
-        <Button type="submit" value="Submit">Submit</Button>
-      </Form>
+      <div>
+        <h2>Add new tie</h2>
+        <Form onSubmit={this.handleSubmit} inline>
+          <Label>
+            First name:
+            <Input type="text" value={this.state.first_name} onChange={this.handleChange.bind(this, 'first_name')} />
+          </Label>
+          <Label>
+            Last name:
+            <Input type="text" value={this.state.last_name} onChange={this.handleChange.bind(this, 'last_name')} />
+          </Label>
+          <Button type="submit" value="Submit">Submit</Button>
+        </Form>
+      </div>
     )
   }
 }
@@ -111,10 +114,9 @@ class CreateTagForm extends React.Component<ICreateTagProps, ICreateTagState> {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit}>
+      <Form onSubmit={this.handleSubmit} inline>
         <FormGroup>
-          <Label for="addTag">Add new tag...</Label>
-          <Input type="text" name="text" id="addTag" onChange={this.handleChange} value={this.state.name}></Input>
+          <Input type="text" name="text" id="addTag" onChange={this.handleChange} value={this.state.name} placeholder="Add new tag..."></Input>
         </FormGroup>
         <Button>Submit</Button>
       </Form>
@@ -178,22 +180,48 @@ export default class Home extends React.Component<{}, HomeState> {
       </p>
     )
     : (
-      <div>
-        <h1>Ties</h1>
+      <Container fluid>
+        <Row>
+          <Col>
+            <h1>Ties</h1>
+          </Col>
+        </Row>
         {this.state.ties.map((tie, index) =>
           <div>
-            <h2>{tie.first_name} {tie.last_name}</h2>
-            <h3>Last talked: {tie.last_conversation}</h3>
-            <h4>Tags:</h4>
-            <div>
-              {tie.tags.map(({ name }) => <span>{name}<br/></span>)}
-              <CreateTagForm tie={tie} addTag={this.addTag.bind(this, index)}></CreateTagForm>
-            </div>
-            <Button color="primary" onClick={this.updateConversation.bind(this, index)}>Just talked...</Button>
-            <Button color="danger" onClick={this.deleteTie.bind(this, index)}>Delete...</Button>
+            <Row>
+              <Col><h2>{tie.first_name} {tie.last_name}</h2></Col>
+            </Row>
+            <Row>
+              <Col><h3>Last talked: {tie.last_conversation}</h3></Col>
+            </Row>
+            <Row>
+              <Col>
+                <h4>Tags:</h4>
+                <ListGroup>
+                  {tie.tags.map(({ name }) => <ListGroupItem>{name}</ListGroupItem>)}
+                </ListGroup>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                  <CreateTagForm tie={tie} addTag={this.addTag.bind(this, index)}></CreateTagForm>
+              </Col>
+            </Row>
+            <Row>
+              <Col>
+                <ButtonGroup>
+                  <Button color="primary" onClick={this.updateConversation.bind(this, index)}>Just talked...</Button>
+                  <Button color="danger" onClick={this.deleteTie.bind(this, index)}>Delete...</Button>
+                </ButtonGroup>
+              </Col>
+            </Row>
           </div>
         )}
-        <CreateTieForm addTie={this.addTie.bind(this)} />
+        <Row>
+          <Col>
+            <CreateTieForm addTie={this.addTie.bind(this)} />
+          </Col>
+        </Row>
       </div>
     )
   }

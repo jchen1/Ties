@@ -1,12 +1,11 @@
 import * as React from 'react'
-import { Container } from 'reactstrap'
 
 export default class Root extends React.Component<{}, {}> {
   public render(): JSX.Element {
     return (
-      <Container fluid={true}>
+      <div>
         {this.props.children}
-      </Container>
+      </div>
     )
   }
 }
