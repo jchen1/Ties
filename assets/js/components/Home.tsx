@@ -222,7 +222,7 @@ export default class Home extends React.Component<{}, HomeState> {
             <CreateTieForm addTie={this.addTie.bind(this)} />
           </Col>
         </Row>
-      </div>
+      </Container>
     )
   }
 }
